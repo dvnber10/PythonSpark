@@ -41,7 +41,7 @@ git clone https://github.com/tu_usuario/proyecto-covid-pyspark.git
 cd proyecto-covid-pyspark
 ```
 
-## Crea un entorno virtual
+## Crea un entorno virtual(Opcional)
 
 ```bash
 python -m venv venv

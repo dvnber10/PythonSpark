@@ -97,6 +97,7 @@ def grafico_por_ubicacion():
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
+    
 def grafico_por_estado():
     df_estado = df.groupBy("Estado").count().toPandas()
     plt.figure(figsize=(6,5))
@@ -105,6 +106,7 @@ def grafico_por_estado():
     plt.axis('equal')
     plt.tight_layout()
     plt.show()
+
 def grafico_etnico():
     df_etnico = df.groupBy("Pertenencia étnica").count().orderBy("count", ascending=False).toPandas()
     plt.figure(figsize=(10,6))
