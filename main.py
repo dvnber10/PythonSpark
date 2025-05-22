@@ -87,6 +87,47 @@ def grafico_por_tipo_contagio():
     plt.tight_layout()
     plt.show()
 
+def grafico_por_ubicacion():
+    df_ubicacion = df.groupBy("Ubicación del caso").count().toPandas()
+    plt.figure(figsize=(8,6))
+    plt.bar(df_ubicacion["Ubicación del caso"], df_ubicacion["count"], color='teal')
+    plt.title("Casos por Ubicación del Caso")
+    plt.xlabel("Ubicación")
+    plt.ylabel("Cantidad")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+def grafico_por_estado():
+    df_estado = df.groupBy("Estado").count().toPandas()
+    plt.figure(figsize=(6,5))
+    plt.pie(df_estado["count"], labels=df_estado["Estado"], autopct='%1.1f%%', startangle=140, colors=plt.cm.Pastel1.colors)
+    plt.title("Distribución por Estado del Paciente")
+    plt.axis('equal')
+    plt.tight_layout()
+    plt.show()
+def grafico_etnico():
+    df_etnico = df.groupBy("Pertenencia étnica").count().orderBy("count", ascending=False).toPandas()
+    plt.figure(figsize=(10,6))
+    plt.bar(df_etnico["Pertenencia étnica"], df_etnico["count"], color='brown')
+    plt.title("Casos por Pertenencia Étnica")
+    plt.xlabel("Grupo Étnico")
+    plt.ylabel("Cantidad")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+def grafico_tipo_recuperacion():
+    df_tipo = df.groupBy("Tipo de recuperación").count().toPandas()
+    df_tipo["Tipo de recuperación"] = df_tipo["Tipo de recuperación"].astype(str)
+    plt.figure(figsize=(7,5))
+    plt.bar(df_tipo["Tipo de recuperación"], df_tipo["count"], color='darkgreen')
+    plt.title("Casos por Tipo de Recuperación")
+    plt.xlabel("Tipo de Recuperación")
+    plt.ylabel("Cantidad")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
 def abrir_ventana_departamento():
     # Crear ventana secundaria
     ventana_dep = tk.Toplevel()
@@ -105,6 +146,9 @@ def abrir_ventana_departamento():
     # Texto donde se mostrarán los resultados
     texto_resultado = tk.Text(ventana_dep, height=10, width=50)
     texto_resultado.pack(pady=10)
+
+
+
 
     # Función para mostrar estadísticas del departamento seleccionado
     def mostrar_estadisticas():
@@ -136,7 +180,7 @@ ventana.title("Gráficas COVID-19 Colombia")
 ventana.geometry("800x600")
 
 ancho_boton = 30
-alto_boton = 10
+alto_boton = 5
 colores = [
     "#4CAF50",  # Verde
     "#2196F3",  # Azul
@@ -159,7 +203,11 @@ botones = [
     ("Porcentaje Recuperados", porcentaje_recuperados, colores[3]),
     ("Evolución Diagnósticos", evolucion_por_fecha, colores[4]),
     ("Por Tipo de Contagio", grafico_por_tipo_contagio, colores[5]),
-    ("Motrar estadisticas", abrir_ventana_departamento, colores[6])
+    ("Motrar estadisticas", abrir_ventana_departamento, colores[6]),
+    ("Casos por Ubicación", grafico_por_ubicacion, "#00BCD4"),
+    ("Casos por Estado", grafico_por_estado, "#E91E63"),
+    ("Casos por Grupo Étnico", grafico_etnico, "#795548"),
+    ("Por Tipo de Recuperación", grafico_tipo_recuperacion, "#8BC34A"),
 ]
 
 
